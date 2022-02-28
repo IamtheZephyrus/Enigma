@@ -5,12 +5,11 @@ import java.util.Scanner;
 public class Encoders {
     public Encoders() {
     }
-
     public String caesar(boolean encrypt) {
         StringBuilder encodedMessage = new StringBuilder();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please input text to be encrypted");
-        String message = scanner.nextLine().toUpperCase();
+        String message = scanner.nextLine().toLowerCase();
 
         System.out.println("please input shift key");
         int key = scanner.nextInt();
@@ -18,15 +17,20 @@ public class Encoders {
         for (Character c : message.toCharArray()) {
             int pivot = c - 'a';
             if(encrypt){
-                int temp = pivot + key;
-                encodedMessage.append((char) ((temp + '0') %26));
+                int originalAlphabetPosition = c - 'a';
+                int newAlphabetPosition = (originalAlphabetPosition + key) % 26;
+                char newCharacter = (char) ('a' + newAlphabetPosition);
+                encodedMessage.append(newCharacter);
             } else {
-                int temp = pivot - key;
-                encodedMessage.append((char) ((temp - '0')%26));
+                int originalAlphabetPosition = c - 'a';
+                int newAlphabetPosition = (originalAlphabetPosition + key) % 26;
+                char newCharacter = (char) ('a' - newAlphabetPosition);
+                encodedMessage.append(newCharacter);
             }
-    }
+        }
         return encodedMessage.toString();
     }
+
 
 
 
