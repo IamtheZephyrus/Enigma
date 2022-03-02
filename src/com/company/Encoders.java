@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Encoders {
     public Encoders() {
     }
+
+    // Ceasar
     public String caesar(boolean encrypt) {
         StringBuilder encodedMessage = new StringBuilder();
         Scanner scanner = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class Encoders {
 
         for (Character c : message.toCharArray()) {
             int pivot = c - 'a';
-            if(encrypt){
+            if (encrypt) {
                 int originalAlphabetPosition = c - 'a';
                 int newAlphabetPosition = (originalAlphabetPosition + key) % 26;
                 char newCharacter = (char) ('a' + newAlphabetPosition);
@@ -31,28 +33,54 @@ public class Encoders {
         return encodedMessage.toString();
     }
 
+    //Vigenere
+    public static String encrypt(String text, final String key) {
 
+        String res = "";
 
+        text = text.toUpperCase();
 
-        /*public String vigenere (String message, String key, boolean encrypt){
-            StringBuilder encodedMessage = new StringBuilder();
-            int i = 0;
-            char[] keyArray = key.toCharArray();
-            for(Character c: message.toCharArray()){
-                if(encrypt){
-                    encodedMessage.append(c + keyArray[i]);
-                    i++;
-                } else {
-                    encodedMessage.append(c - keyArray[i]);
-                    i++;
-                }
-                //Length -1 since index starts at 0
-                if(i > key.length() -1){
-                    i = 0;
-                }
-            }
-            return encodedMessage.toString();
+        for (int i = 0, j = 0; i < text.length(); i++) {
+
+            char c = text.charAt(i);
+
+            if (c < 'A' || c > 'Z')
+
+                continue;
+
+            res += (char) ((c + key.charAt(j) - 2 * 'A') % 26 + 'A');
+
+            j = ++j % key.length();
+
         }
-         */
 
+        return res;
+
+    }
 }
+
+/*
+    public static String decrypt(String text, final String key) {
+
+        String res = "";
+
+        text = text.toUpperCase();
+
+        for (int i = 0, j = 0; i < text.length(); i++) {
+
+            char c = text.charAt(i);
+
+            if (c < 'A' || c > 'Z')
+
+                continue;
+
+            res += (char) ((c - key.charAt(j) + 26) % 26 + 'A');
+
+            j = ++j % key.length();
+
+        }
+
+        return res;
+
+    }
+}*/
